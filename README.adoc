@@ -1,5 +1,4 @@
-NOTE: It's a fork of atlas-project (https://github.com/qameta/atlas)[Atlas])
-project.
+NOTE: It's a fork of (https://github.com/qameta/atlas)[Atlas]) project.
 
 == Ornate
 
