@@ -1,0 +1,23 @@
+NOTE: It's a fork of atlas-project (https://github.com/qameta/atlas)[Atlas]
+project.
+
+== Ornate
+
+WebTest Framework on Kotlin
+
+A common feature is using KotlinDSL for testing webpages
+
+[source,kotlin]
+----
+ mainPage {
+            open()
+
+            section("Some Title section") {
+                header {
+                    title() should TextMatcher.text(Matchers.equalToIgnoringCase("LIVE Bets"))
+                    searchField() sendKeys("Фирма веников не вяжет")
+                    searchField() sendKeys(Keys.ENTER)
+                }
+            }
+}
+----

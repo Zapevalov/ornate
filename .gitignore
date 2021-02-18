@@ -1,0 +1,8 @@
+# Project exclude paths
+/.gradle/
+/ornate-core/build/
+/ornate-sample/build/
+/ornate-webdriver/build/
+/.idea
+/build
+/.allure
