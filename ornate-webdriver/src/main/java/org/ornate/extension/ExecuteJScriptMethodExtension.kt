@@ -9,13 +9,18 @@ import org.ornate.internal.Configuration
 import org.ornate.util.MethodInfo
 import java.lang.reflect.Method
 
+/**
+ * use JS for specific element
+ * @proxy - specific element
+ * @methodInfo.getArgs()[0] - js command
+ */
 class ExecuteJScriptMethodExtension : MethodExtension {
     override fun test(method: Method): Boolean {
         return method.name == EXECUTE_SCRIPT
     }
 
     override fun invoke(
-        proxy: Any?,
+        proxy: Any,
         methodInfo: MethodInfo,
         config: Configuration
     ): Any? {

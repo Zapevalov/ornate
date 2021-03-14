@@ -7,9 +7,9 @@ import org.junit.Test
 import org.mockito.Mockito
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
-import org.ornate.extension.FindBy
+import org.ornate.annotation.FindBy
 import org.ornate.extension.FindByExtension
-import org.ornate.extension.Name
+import org.ornate.annotation.Name
 import org.ornate.extension.ToStringMethodExtension
 import org.ornate.testdata.ObjectFactory.mockOrnateWebElement
 import org.ornate.testdata.ObjectFactory.mockWebElement

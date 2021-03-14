@@ -38,6 +38,7 @@ object ReflectionUtils {
      * @param parameterTypes - parameter types [Class]
      * @return required method [Method]
      */
+    //TODO remove vararg
     fun getMatchingMethod(
         cls: Class<*>, methodName: String,
         vararg parameterTypes: Class<*>?
@@ -51,26 +52,13 @@ object ReflectionUtils {
             .plus(ClassUtils.getAllInterfaces(cls))
             .flatMap { x: Class<*> -> x.declaredMethods.toList() }
 
-
-        val filter1: List<Method?> = methods.filter {
-            it.name == methodName && parameterTypes.contentDeepEquals(it.parameterTypes)
-        }
-
-        val filter2 = methods.filter {
-            it.name == methodName && isAssignable(
-                parameterTypes,
-                it.parameterTypes, true
-            )
-        }
-
         return methods
             .filter { it.name == methodName }
             .filter {
                 parameterTypes.contentDeepEquals(it.parameterTypes) ||
                         isAssignable(parameterTypes, it.parameterTypes, true)
             }
-            .takeIf { it.isNotEmpty() }
-            ?.get(0)
+            .takeIf { it.isNotEmpty() }?.get(0)
             ?: throw OrnateException("Can't find valid method: " + cls.name + "." + methodName)
     }
 

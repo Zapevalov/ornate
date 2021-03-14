@@ -3,19 +3,15 @@ package org.ornate
 import org.assertj.core.api.Assertions.assertThat
 import org.hamcrest.collection.IsCollectionWithSize
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mockito
-import org.mockito.invocation.InvocationOnMock
-import org.mockito.stubbing.Answer
 import org.openqa.selenium.By
 import org.openqa.selenium.WebDriver
 import org.openqa.selenium.WebElement
-import org.ornate.extension.FindBy
+import org.ornate.annotation.FindBy
 import org.ornate.extension.FindByCollectionExtension
 import org.ornate.testdata.ObjectFactory.mockOrnateWebElement
 import org.ornate.testdata.ObjectFactory.mockWebElement
-import java.util.ArrayList
 import java.util.concurrent.atomic.AtomicInteger
 
 class ElementsCollectionTest {

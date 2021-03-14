@@ -1,18 +1,16 @@
 package org.ornate
 
 import org.assertj.core.api.Assertions.assertThat
-import org.junit.Ignore
 import org.junit.Test
 import org.mockito.Mockito
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
 import org.ornate.extension.ExtractMethodExtension
-import org.ornate.extension.FindBy
+import org.ornate.annotation.FindBy
 import org.ornate.extension.FindByCollectionExtension
 import org.ornate.testdata.ObjectFactory.mockOrnateWebElement
 import org.ornate.testdata.ObjectFactory.mockWebElement
 import java.util.*
-import kotlin.reflect.KFunction1
 
 class ExtractCollectionExtensionTest {
     private lateinit var collection: ElementsCollection<OrnateWebElement<*>>

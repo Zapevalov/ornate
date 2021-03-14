@@ -5,6 +5,7 @@ dependencies {
     implementation("org.apache.httpcomponents:httpclient:4.5.8")
     implementation("org.seleniumhq.selenium:selenium-java")
     implementation("org.hamcrest:hamcrest-all")
+    implementation("org.aeonbits.owner:owner:1.0.12")
 
     testImplementation("ru.yandex.qatools.matchers:webdriver-matchers")
     testImplementation("org.apache.commons:commons-lang3")

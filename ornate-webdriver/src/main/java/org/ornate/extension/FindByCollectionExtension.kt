@@ -4,13 +4,14 @@ import org.openqa.selenium.By
 import org.openqa.selenium.SearchContext
 import org.openqa.selenium.WebElement
 import org.ornate.Ornate
+import org.ornate.annotation.FindBy
 import org.ornate.api.MethodExtension
 import org.ornate.api.OrnateTarget
 import org.ornate.api.Retry
 import org.ornate.context.RetryerContext
 import org.ornate.exceptions.OrnateException
 import org.ornate.internal.Configuration
-import org.ornate.internal.DefaultRetryer
+import org.ornate.internal.retry.CustomRetryer
 import org.ornate.target.HardcodedTarget
 import org.ornate.target.LazyTarget
 import org.ornate.util.MethodInfo
@@ -19,12 +20,11 @@ import org.ornate.util.MethodInfoUtils.getMethodInformation
 import org.ornate.util.MethodInfoUtils.processParamTemplate
 import java.lang.reflect.Method
 import java.lang.reflect.ParameterizedType
-import java.lang.reflect.Type
 import java.util.*
 
 /**
  * Extension for methods with [FindBy] annotation
- * and [ElementsCollection] return type.
+ * and [ElementsCollection] return type
  */
 class FindByCollectionExtension : MethodExtension {
     override fun test(method: Method): Boolean {
@@ -33,7 +33,7 @@ class FindByCollectionExtension : MethodExtension {
     }
 
     override fun invoke(
-        proxy: Any?,
+        proxy: Any,
         methodInfo: MethodInfo,
         config: Configuration
     ): Any {
@@ -52,19 +52,19 @@ class FindByCollectionExtension : MethodExtension {
             }
 
             val by: By? = findBy.selector.buildBy(processParamTemplate(findBy.value, parameters))
-            val dfdf: List<WebElement> = context.findElements(by) as List<WebElement>
+            val webElementsList: List<WebElement> = context.findElements(by) as List<WebElement>
 
-            var dfdf1: ArrayList<Any>? = null
-            for (i in dfdf.indices){
-                val ornateTarget: OrnateTarget = HardcodedTarget("$name [$i]", dfdf[i])
-                dfdf1 = arrayListOf(Ornate(childConfiguration).create(ornateTarget, clazz))
+            var arrayList: ArrayList<Any>? = null
+            for (i in webElementsList.indices){
+                val ornateTarget: OrnateTarget = HardcodedTarget("$name [$i]",  webElementsList[i])
+                arrayList = arrayListOf(Ornate(childConfiguration).create(ornateTarget, clazz))
             }
 
-            dfdf1!!
+            arrayList!!
         }
 
         methodInfo.method.getAnnotation(Retry::class.java)?.let {
-            childConfiguration.registerContext(RetryerContext(DefaultRetryer(it)))
+            childConfiguration.registerContext(RetryerContext(CustomRetryer(it)))
         }
 
         return Ornate(childConfiguration).create(elementsTarget, method.returnType)

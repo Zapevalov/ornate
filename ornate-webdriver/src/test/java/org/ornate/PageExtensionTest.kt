@@ -10,9 +10,11 @@ import org.mockito.ArgumentCaptor
 import org.mockito.Mockito
 import org.mockito.Mockito.`when`
 import org.openqa.selenium.WebDriver
+import org.ornate.annotation.Page
+import org.ornate.annotation.Path
+import org.ornate.annotation.Query
+import org.ornate.annotation.QueryMap
 import org.ornate.exceptions.OrnateException
-import org.ornate.extension.*
-import org.ornate.testdata.ObjectFactory.mockOrnateWebElement
 import org.ornate.testdata.ObjectFactory.mockWebDriver
 
 //TODO доделать вызов дефолтной реализации как в Атласе
@@ -151,11 +153,11 @@ class PageExtensionTest {
     interface TestSiteWithPathParams : WebSite {
         @Page(url = "users/{id}/{project}")
         fun onMainPage(
-            @Path("id") customerId: Long,
-            @Path("project") name: String?,
-            @Query("q") value: Int?,
-            @QueryMap queryMap: Map<String?, String?>?,
-            @QueryMap queryMap1: Map<String?, String?>?
+                @Path("id") customerId: Long,
+                @Path("project") name: String?,
+                @Query("q") value: Int?,
+                @QueryMap queryMap: Map<String?, String?>?,
+                @QueryMap queryMap1: Map<String?, String?>?
         ): MainPage?
     }
 

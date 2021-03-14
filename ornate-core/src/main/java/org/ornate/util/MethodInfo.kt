@@ -2,7 +2,11 @@ package org.ornate.util
 
 import java.lang.reflect.Method
 
-
+/**
+ * MethodInfo
+ *
+ * collect method information
+ */
 class MethodInfo(val method: Method, args: Array<Any?>?) {
     private val args: Array<Any?>
 
@@ -10,6 +14,9 @@ class MethodInfo(val method: Method, args: Array<Any?>?) {
         return checkArgs(args)
     }
 
+    /**
+     * @return parameter like type corresponding object [type]
+     */
     fun <T> getParameter(type: Class<T>): T? {
         val parameters = method.parameters
         var result: T? = null
@@ -22,6 +29,9 @@ class MethodInfo(val method: Method, args: Array<Any?>?) {
         return result
     }
 
+    /**
+     * @return parameter like type corresponding object [type] that has [annotation]
+     */
     fun <T> getParameter(type: Class<T>, annotation: Class<out Annotation>): T? {
         val parameters = method.parameters
         var result: T? = null

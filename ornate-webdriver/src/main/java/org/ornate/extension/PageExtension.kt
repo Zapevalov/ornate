@@ -3,6 +3,7 @@ package org.ornate.extension
 import org.apache.http.client.utils.URIBuilder
 import org.openqa.selenium.WrapsDriver
 import org.ornate.Ornate
+import org.ornate.annotation.Page
 import org.ornate.api.MethodExtension
 import org.ornate.exceptions.OrnateException
 import org.ornate.internal.Configuration
@@ -24,7 +25,7 @@ class PageExtension : MethodExtension {
     }
 
     override fun invoke(
-        proxy: Any?,
+        proxy: Any,
         methodInfo: MethodInfo,
         config: Configuration
     ): Any {

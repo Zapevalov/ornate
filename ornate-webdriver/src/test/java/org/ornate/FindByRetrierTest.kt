@@ -7,9 +7,9 @@ import org.openqa.selenium.NotFoundException
 import org.openqa.selenium.WebElement
 import org.ornate.api.Retry
 import org.ornate.context.RetryerContext
-import org.ornate.extension.FindBy
-import org.ornate.internal.DefaultRetryer
-import org.ornate.internal.EmptyRetryer
+import org.ornate.annotation.FindBy
+import org.ornate.internal.retry.CustomRetryer
+import org.ornate.internal.retry.DefaultRetryer
 import org.ornate.testdata.ObjectFactory.mockWebDriver
 import org.ornate.testdata.ObjectFactory.mockWebElement
 
@@ -29,13 +29,13 @@ class FindByRetrierTest {
     }
 
     @Test(expected = NotFoundException::class)
-    fun shouldSetGlobalRetryThroughDefaultRetryer() {
+    fun shouldSetGlobalRetryThroughCustomRetryer() {
         val parentOrigin: WebElement = mockWebElement()
         Mockito.`when`(parentOrigin.isDisplayed).thenThrow(NotFoundException())
         val ornate: Ornate = Ornate(WebDriverConfiguration(mockWebDriver()))
             .context(
                 RetryerContext(
-                    DefaultRetryer(3000L, 1000L, listOf(Throwable::class))
+                    CustomRetryer(3000L, 1000L, listOf(Throwable::class))
                 )
             )
         val parent: ParentElement = ornate.create(parentOrigin, ParentElement::class.java)
@@ -43,11 +43,11 @@ class FindByRetrierTest {
     }
 
     @Test(expected = NotFoundException::class)
-    fun shouldSetGlobalRetryThroughEmptyRetryer() {
+    fun shouldSetGlobalRetryThroughDefaultRetryer() {
         val parentOrigin: WebElement = mockWebElement()
         Mockito.`when`(parentOrigin.isDisplayed).thenThrow(NotFoundException())
         val ornate: Ornate = Ornate(WebDriverConfiguration(mockWebDriver()))
-            .context(RetryerContext(EmptyRetryer()))
+            .context(RetryerContext(DefaultRetryer()))
         val parent: ParentElement = ornate.create(parentOrigin, ParentElement::class.java)
         parent.isDisplayed
     }

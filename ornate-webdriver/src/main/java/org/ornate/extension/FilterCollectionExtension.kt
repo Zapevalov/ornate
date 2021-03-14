@@ -8,7 +8,7 @@ import org.ornate.util.MethodInfo
 import java.lang.reflect.Method
 
 /**
- * Filter method extension for [ElementsCollection].
+ * Filter method extension for [ElementsCollection]
  */
 class FilterCollectionExtension : MethodExtension {
     override fun test(method: Method): Boolean {
@@ -16,15 +16,16 @@ class FilterCollectionExtension : MethodExtension {
     }
 
     override fun invoke(
-        proxy: Any?,
+        proxy: Any,
         methodInfo: MethodInfo,
         config: Configuration
     ): ElementsCollection<*> {
-
         val predicate = methodInfo.getArgs()[0] as (Any?) -> Boolean
 
-        val filter = (proxy as List<*>).filter(predicate)
-        return Ornate(config).create(filter, ElementsCollection::class.java)
+        val proxyList = proxy as List<*>
+        val filter = proxyList.filter(predicate)
+        return Ornate(config)
+            .create(filter, ElementsCollection::class.java)
     }
 
     companion object {

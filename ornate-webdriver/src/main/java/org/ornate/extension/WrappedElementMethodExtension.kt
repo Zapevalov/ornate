@@ -13,7 +13,7 @@ class WrappedElementMethodExtension : MethodExtension {
     override fun test(method: Method) = method.name == GET_WRAPPED_ELEMENT
 
     override fun invoke(
-        proxy: Any?,
+        proxy: Any,
         methodInfo: MethodInfo,
         config: Configuration
     ) = config.requireContext(TargetContext::class.java).getValue().instance()
