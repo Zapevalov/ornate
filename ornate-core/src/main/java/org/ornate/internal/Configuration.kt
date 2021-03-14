@@ -6,7 +6,8 @@ import org.ornate.exceptions.OrnateException
 import java.util.*
 
 /**
- * Ornate configuration.
+ * Ornate configuration
+ *
  */
 open class Configuration {
     private val extensions: MutableMap<Class<out Extension?>, Extension>
@@ -35,6 +36,10 @@ open class Configuration {
         return getContext(contextType) ?: throw OrnateException("Context not found by type $contextType")
     }
 
+    /**
+     * Every element or block has its own behavior so we create new instance of configuration
+     * for each new element or block and setup it in accordance with the tasks
+     */
     fun child(): Configuration {
         val configuration = Configuration()
         getExtensions(Extension::class.java).forEach { configuration.registerExtension(it) }

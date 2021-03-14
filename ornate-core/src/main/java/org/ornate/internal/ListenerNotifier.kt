@@ -12,7 +12,6 @@ import java.util.*
 class ListenerNotifier : Listener {
     private val listeners: MutableList<Listener> = ArrayList()
 
-    //раньше тут было  vararg
     fun addListeners( listeners: List<Listener>) {
         this.listeners.addAll(listeners)
     }
@@ -32,7 +31,7 @@ class ListenerNotifier : Listener {
             try {
                 listener.afterMethodCall(methodInfo, configuration)
             } catch (e: Exception) {
-                LOGGER.error("Error during listener {} afterMethodCall", listener, e)
+                LOGGER.error("Error during listener {$listener} afterMethodCall", listener, e)
             }
         }
     }

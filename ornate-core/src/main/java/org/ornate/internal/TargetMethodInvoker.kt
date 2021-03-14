@@ -9,11 +9,12 @@ import java.lang.reflect.InvocationTargetException
 import java.util.*
 
 /**
- * Target method invoker.
+ * Target method invoker
+ * default implementation [MethodInvoker] interface
  */
 class TargetMethodInvoker : MethodInvoker {
     @Throws(Throwable::class)
-    override fun invoke(proxy: Any?, methodInfo: MethodInfo, config: Configuration): Any? {
+    override fun invoke(proxy: Any, methodInfo: MethodInfo, config: Configuration): Any? {
         val target: Any = config.requireContext(TargetContext::class.java).getValue().instance()!!
         val targetMethod = ReflectionUtils.getMatchingMethod(
             target.javaClass,
@@ -22,13 +23,13 @@ class TargetMethodInvoker : MethodInvoker {
         )
         return try {
             targetMethod.isAccessible = true
-            val sdfdf = targetMethod.invoke(target, *methodInfo.getArgs())
-            sdfdf
+            targetMethod.invoke(target, *methodInfo.getArgs())
         } catch (e: InvocationTargetException) {
             throw e.targetException
         }
     }
 
+    //TODO remove vararg
     private fun getParametersTypes(vararg args: Any?): Array<Class<*>?> {
         return args.map { obj: Any? -> obj?.javaClass }.toTypedArray()
     }

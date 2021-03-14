@@ -4,10 +4,20 @@ import org.ornate.api.MethodInvoker
 import org.ornate.api.Retry
 import org.ornate.api.Timeout
 import org.ornate.context.RetryerContext
+import org.ornate.internal.retry.CustomRetryer
+import org.ornate.internal.retry.DefaultRetryer
+import org.ornate.internal.retry.Retryer
 import org.ornate.util.MethodInfo
 import java.lang.reflect.InvocationHandler
 import java.lang.reflect.Method
 
+/**
+ * OrnateMethodHandler
+ *
+ * Entry point for called method
+ * The corresponding invoke method is called depending on the [MethodInvoker] type class
+ * by default such class is [TargetMethodInvoker]
+ */
 class OrnateMethodHandler(
     private val configuration: Configuration,
     private val notifier: ListenerNotifier,
@@ -36,11 +46,11 @@ class OrnateMethodHandler(
         methodInfo: MethodInfo
     ): Any? {
         val retryAnnotation: Retry? = methodInfo.method.getAnnotation(Retry::class.java)
-        val userRetryer: Retryer? = retryAnnotation?.let { Retryer::class.java.cast(DefaultRetryer(it)) }
+        val userRetryer: Retryer? = retryAnnotation?.let { Retryer::class.java.cast(CustomRetryer(it)) }
 
         val retryer: Retryer =
             userRetryer ?: configuration.getContext(RetryerContext::class.java)?.getValue() ?: RetryerContext(
-                EmptyRetryer()
+                DefaultRetryer()
             ).getValue()
 
         methodInfo.getParameter(Int::class.java, Timeout::class.java)?.let {

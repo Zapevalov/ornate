@@ -9,13 +9,15 @@ import org.ornate.util.MethodInfo
 import java.lang.reflect.Method
 
 /**
- * WaitUntil method extension for [OrnateWebElement].
+ * WaitUntil method extension for [OrnateWebElement]
+ *
+ * retest the condition until the condition is met, otherwise throw a [WaitUntilException]
  */
 class WaitUntilMethodExtension : MethodExtension {
     override fun test(method: Method) = method.name == WAIT_UNTIL
 
     override fun invoke(
-        proxy: Any?,
+        proxy: Any,
         methodInfo: MethodInfo,
         config: Configuration
     ): Any? {

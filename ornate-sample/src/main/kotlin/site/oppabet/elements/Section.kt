@@ -3,7 +3,7 @@ package site.oppabet.elements
 import io.qameta.allure.Description
 import org.ornate.ElementsCollection
 import org.ornate.OrnateWebElement
-import org.ornate.extension.FindBy
+import org.ornate.annotation.FindBy
 
 interface Section : OrnateWebElement<Section>{
     @FindBy(".//div[@class='c-section__header ']")

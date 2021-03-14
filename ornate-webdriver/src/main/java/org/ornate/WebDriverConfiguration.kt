@@ -6,19 +6,19 @@ import org.ornate.context.WebDriverContext
 import org.ornate.extension.*
 import org.ornate.internal.Configuration
 import org.ornate.internal.DefaultMethodExtension
-import org.ornate.internal.EmptyRetryer
+import org.ornate.internal.retry.DefaultRetryer
 
 /**
  * WebDriver configuration.
  */
 class WebDriverConfiguration(webDriver: WebDriver) : Configuration() {
-    constructor(webDriver: WebDriver, baseUrl: String?) : this(webDriver) {
+    constructor(webDriver: WebDriver, baseUrl: String) : this(webDriver) {
         System.getProperties().setProperty("ORNATE_WEBSITE_URL", baseUrl)
     }
 
     init {
         registerContext(WebDriverContext(webDriver))
-        registerContext(RetryerContext(EmptyRetryer()))
+        registerContext(RetryerContext(DefaultRetryer()))
         registerExtension(DriverProviderExtension())
         registerExtension(DefaultMethodExtension())
         registerExtension(FindByExtension())

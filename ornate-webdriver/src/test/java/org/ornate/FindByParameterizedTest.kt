@@ -6,10 +6,10 @@ import org.mockito.ArgumentMatchers
 import org.mockito.Mockito
 import org.openqa.selenium.By
 import org.openqa.selenium.WebElement
-import org.ornate.extension.FindBy
+import org.ornate.annotation.FindBy
 import org.ornate.extension.FindByCollectionExtension
 import org.ornate.extension.FindByExtension
-import org.ornate.extension.Param
+import org.ornate.annotation.Param
 import org.ornate.testdata.ObjectFactory.mockWebElement
 
 

@@ -15,7 +15,7 @@ class ExtractMethodExtension : MethodExtension {
     }
 
     override fun invoke(
-        proxy: Any?,
+        proxy: Any,
         methodInfo: MethodInfo,
         config: Configuration
     ): Any {

@@ -1,4 +1,4 @@
-package org.ornate.extension
+package org.ornate.annotation
 
 /**
  * Path marker. Use to replace item defined in your uri path.

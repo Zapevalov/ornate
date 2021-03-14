@@ -22,7 +22,7 @@ class OppabetSiteTest {
 
     @BeforeTest
     fun startDriver() {
-        WebDriverManager.chromedriver().driverVersion("88").setup()
+        WebDriverManager.chromedriver().setup()
         driver = ChromeDriver()
         ornate = Ornate(WebDriverConfiguration(driver, "https://oppabet.com"))
             .listener(AllureLogger())

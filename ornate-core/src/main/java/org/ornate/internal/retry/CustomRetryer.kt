@@ -1,13 +1,13 @@
-package org.ornate.internal
+package org.ornate.internal.retry
 
 import org.ornate.api.Retry
 import java.util.concurrent.TimeUnit
 import kotlin.reflect.KClass
 
 /**
- * Retryer.
+ * Simple implementation Retryer.class
  */
-class DefaultRetryer(timeout: Long, polling: Long, ignoring: List<KClass<out Throwable>?>?) : Retryer {
+class CustomRetryer(timeout: Long, polling: Long, ignoring: List<KClass<out Throwable>?>?) : Retryer {
     private val ignoring: MutableList<KClass<out Throwable>?>? = ignoring?.toMutableList()
     private var timeout: Long
     private var polling: Long

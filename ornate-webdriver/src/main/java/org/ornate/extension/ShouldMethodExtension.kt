@@ -8,7 +8,7 @@ import org.ornate.util.MethodInfo
 import java.lang.reflect.Method
 
 /**
- * Should method extension for [OrnateWebElement].
+ * should method works like assert for [OrnateWebElement]
  */
 class ShouldMethodExtension : MethodExtension {
     override fun test(method: Method): Boolean {
@@ -16,7 +16,7 @@ class ShouldMethodExtension : MethodExtension {
     }
 
     override fun invoke(
-        proxy: Any?,
+        proxy: Any,
         methodInfo: MethodInfo,
         config: Configuration
     ): Any? {

@@ -13,7 +13,7 @@ tasks.withType(Wrapper::class) {
 
 plugins {
     java
-    id("ru.vyarus.quality") version "4.4.0"
+//    id("ru.vyarus.quality") version "4.4.0"
     id("com.jfrog.bintray") version "1.8.0"
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
     id("net.researchgate.release") version "2.8.1"
@@ -37,7 +37,7 @@ subprojects {
         plugin("java")
         plugin("maven")
         plugin("java-library")
-        plugin("ru.vyarus.quality")
+//        plugin("ru.vyarus.quality")
         plugin("io.spring.dependency-management")
     }
 

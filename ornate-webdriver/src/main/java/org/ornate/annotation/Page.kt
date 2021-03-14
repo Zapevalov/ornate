@@ -1,5 +1,10 @@
-package org.ornate.extension
+package org.ornate.annotation
 
+/**
+ * Page marker
+ * Use for [WebPage] implementation
+ */
 @kotlin.annotation.Retention(AnnotationRetention.RUNTIME)
 @Target(AnnotationTarget.FUNCTION, AnnotationTarget.PROPERTY_GETTER, AnnotationTarget.PROPERTY_SETTER)
-annotation class Name(val value: String)
+annotation class Page(val url: String = "/")
+

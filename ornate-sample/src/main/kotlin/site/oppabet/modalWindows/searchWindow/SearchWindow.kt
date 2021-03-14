@@ -4,7 +4,7 @@ package site.oppabet.modalWindows.searchWindow
 import io.qameta.allure.Description
 import org.openqa.selenium.WebElement
 import org.ornate.OrnateWebElement
-import org.ornate.extension.FindBy
+import org.ornate.annotation.FindBy
 
 interface SearchWindow : OrnateWebElement<SearchWindow>{
 
