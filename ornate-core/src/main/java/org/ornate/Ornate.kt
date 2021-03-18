@@ -62,4 +62,8 @@ class Ornate @JvmOverloads constructor(private val configuration: Configuration 
         return create(type.simpleName, target, type)
     }
 
+    inline fun <reified T: Any> create(target: Any): T {
+        return create((T::class.java).simpleName, target, T::class.java)
+    }
+
 }

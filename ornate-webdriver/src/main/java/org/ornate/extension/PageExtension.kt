@@ -33,8 +33,6 @@ class PageExtension : MethodExtension {
         val wrapsDriver = if (proxy is WrapsDriver) proxy else throw OrnateException("Proxy is not WrapsDriver")
         val args: Array<Any> = methodInfo.getArgs().filterNotNull()
             .toTypedArray()
-//            .takeIf { it.isNotEmpty() }
-//            ?: throw OrnateException("Method ${method.name} doesn't have arguments ")
 
         defineBaseUrl(method, args).also { if (it.isNotEmpty()) wrapsDriver.wrappedDriver[it]  }
 
