@@ -15,7 +15,6 @@ interface Retryer {
     @Throws(Throwable::class)
     fun shouldRetry(start: Long, e: Throwable?): Boolean
 
-    @JvmDefault
     fun shouldRetry(
         start: Long,
         timeout: Long,

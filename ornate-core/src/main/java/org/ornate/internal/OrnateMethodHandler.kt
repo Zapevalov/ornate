@@ -68,7 +68,10 @@ class OrnateMethodHandler(
             lastException = try {
                 return methodInvoker!!.invoke(proxy, methodInfo, configuration)
             } catch (e: Throwable) {
-                e
+                if (e.cause != null)
+                    e.cause!!
+                else
+                    e
             }
         } while (retryer.shouldRetry(start, lastException))
         throw lastException

@@ -31,6 +31,9 @@ configure(listOf(rootProject)) {
 
 
 subprojects {
+    group = "org.ornate"
+    version = version
+
     apply {
         plugin("org.jetbrains.kotlin.jvm")
         plugin("kotlin")
@@ -40,9 +43,6 @@ subprojects {
 //        plugin("ru.vyarus.quality")
         plugin("io.spring.dependency-management")
     }
-
-    group = "org.ornate"
-    version = "0.0.1-SNAPSHOT"
 
     repositories {
         mavenCentral()
@@ -70,6 +70,5 @@ subprojects {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions.jvmTarget = "11"
-        kotlinOptions.freeCompilerArgs = listOf("-Xjvm-default=all")
     }
 }

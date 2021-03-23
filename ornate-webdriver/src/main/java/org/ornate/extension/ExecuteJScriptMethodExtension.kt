@@ -23,7 +23,7 @@ class ExecuteJScriptMethodExtension : MethodExtension {
         proxy: Any,
         methodInfo: MethodInfo,
         config: Configuration
-    ): Any? {
+    ): Any {
         val driver: WebDriver = config.getContext(WebDriverContext::class.java)?.getValue() ?:
             throw OrnateException("WebDriver is missing")
         (driver as JavascriptExecutor)
