@@ -2,46 +2,46 @@ package org.ornate.internal
 
 import org.ornate.api.MethodExtension
 import org.ornate.util.MethodInfo
-import java.lang.invoke.MethodHandle
-import java.lang.invoke.MethodHandles
-import java.lang.invoke.MethodType
 import java.lang.reflect.Method
 
 /**
  * DefaultMethodExtension
  *
- * Kotlin does not work with [default] methods, but
- * framework compiles interfaces to bytecode with helping key [-Xjvm-default=all] and gets necessary for us java 11 code
- * Then Ornate checks methods of Interface and if method has annotation [JvmDefault]
- * Ornate invokes default method in interfaces through [MethodHandles.lookup]
+ * Kotlin compiles methods with implementations through
+ * [DefaultImpls] static subclass. And here i execute this subclass
+ * and invoke [@method]
  */
 class DefaultMethodExtension : MethodExtension {
+    private lateinit var defaultImplClass: Class<*>
+
     override fun test(method: Method): Boolean {
-        return method.isAnnotationPresent(JvmDefault::class.java)
+        if (method.declaringClass.declaredClasses.any { it.name.contains("DefaultImpls") }) {
+            this.defaultImplClass = method.declaringClass.declaredClasses.first { it.name.contains("DefaultImpls") }
+            return defaultImplClass.methods.map { it.name }.any { it.contains(method.name) }
+        }
+        return false
     }
 
-    override operator fun invoke(
-        proxy: Any,
-        methodInfo: MethodInfo,
-        config: Configuration
-    ): Any? {
-        val declaringClass: Class<*> = methodInfo.method.declaringClass
-        val parameterTypes: Array<Class<*>?> =
-            methodInfo.method.parameters.map { it.type }.toTypedArray().takeIf { it.isNotEmpty() }
-                ?: arrayOfNulls(0)
+    override fun invoke(proxy: Any, methodInfo: MethodInfo, config: Configuration): Any? {
+        val method = defaultImplClass.methods
+            .filter { it.name == methodInfo.method.name }
+            .filter { it.parameterCount == methodInfo.getArgs().size + 1 }
+            .first { it.getWithArgs(methodInfo.getArgs()) }
 
-
-        val bindTo: MethodHandle = MethodHandles.lookup()
-            .findSpecial(
-                declaringClass,
-                methodInfo.method.name,
-                MethodType.methodType(methodInfo.method.returnType, parameterTypes),
-                declaringClass
-            ).bindTo(proxy)
-        return if (methodInfo.getArgs().isEmpty()) {
-            bindTo.invoke()
+        return if (methodInfo.getArgs().isNotEmpty()) {
+            method?.invoke(defaultImplClass, proxy, *methodInfo.getArgs())
         } else {
-            bindTo.invokeWithArguments(*methodInfo.getArgs())
+            method?.invoke(defaultImplClass, proxy)
         }
+    }
+
+    //choose methods with parameters type like methodInfo arguments
+    private fun Method.getWithArgs(args: Array<Any?>): Boolean{
+        if(args.isEmpty() && parameters.size == 1){
+            return true
+        }
+
+        return parameterTypes.map { it.name }
+            .intersect(args.requireNoNulls().map { it.javaClass.typeName} ).size == args.size
     }
 }

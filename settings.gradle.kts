@@ -1,4 +1,4 @@
-rootProject.name = "org.ornate"
+rootProject.name = "Ornate"
 
 include (":core", ":webdriver", ":sample")
 project(":core").projectDir = file("ornate-core")

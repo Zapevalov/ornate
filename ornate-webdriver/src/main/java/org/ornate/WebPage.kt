@@ -12,11 +12,9 @@ interface WebPage : WrapsDriver, SearchContext {
     @DriverProvider
     override fun getWrappedDriver(): WebDriver
 
-    @JvmDefault
     fun open(url: String) = wrappedDriver[url]
 
     //TODO take out %ORNATE_WEBSITE_URL% to config
-    @JvmDefault
     fun open() = wrappedDriver[System.getProperties().getProperty("ORNATE_WEBSITE_URL")]
 
 }

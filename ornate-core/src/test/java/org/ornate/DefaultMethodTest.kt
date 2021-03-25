@@ -43,28 +43,24 @@ class DefaultMethodTest {
     }
 
     interface InterfaceWithDefaultVoidMethod {
-        @JvmDefault
         fun doSomething() {
             println("doSomething")
         }
     }
 
     interface InterfaceWithDefaultVoidWithStringMethod {
-        @JvmDefault
         fun doSomething(string: String) {
             println(string)
         }
     }
 
     interface InterfaceWithDefaultMethodThrowable {
-        @JvmDefault
         fun doSomething(){
             throw OrnateException("")
         }
     }
 
     interface InterfaceWithDefaultStringMethod {
-        @JvmDefault
         fun doSomething() = "doSomething()"
     }
 }

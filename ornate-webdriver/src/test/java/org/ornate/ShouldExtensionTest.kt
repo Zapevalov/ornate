@@ -95,6 +95,7 @@ class ShouldExtensionTest {
         private const val NOT_DISPLAYED = false
         private const val TIMEOUT = 5
 
+        @Suppress("UNCHECKED_CAST")
         private fun createElementsCollection(elements: Array<OrnateWebElement<*>>): ElementsCollection<OrnateWebElement<*>> {
             return Ornate()
                 .extension(ShouldMethodExtension())

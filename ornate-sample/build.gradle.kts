@@ -2,6 +2,7 @@ plugins {
     id("io.qameta.allure") version "2.8.1"
 }
 
+
 allure {
     resultsDir = file("build/allure-results")
     version = "2.10.0"

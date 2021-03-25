@@ -44,20 +44,7 @@ object MethodInfoUtils {
         )
     }
 
-//    fun getQueryMapValues(method: Method, args: Array<Any>): Map<String, String> {
-//        val queryPredicate =
-//            IntPredicate { index: Int -> isAnnotated(method.parameters[index], QueryMap::class.java) }
-//        return IntStream.range(0, method.parameterCount)
-//            .filter(queryPredicate)
-//            .boxed()
-//            .map { index: Int? ->
-//                args[index!!] as HashMap<String?, String?>
-//            }
-//            .flatMap<Map.Entry<String?, String?>> { x: HashMap<String?, String?> -> x.entries.stream() }
-//            .collect(Collectors.toMap({x -> x.key},{x -> x.value})).map { (k,v) -> k!! to v!! }.toMap()
-//
-//    }
-
+    @Suppress("UNCHECKED_CAST")
     fun getQueryMapValues(method: Method, args: Array<Any>): Map<String, String> {
 
         val filter = method.parameters

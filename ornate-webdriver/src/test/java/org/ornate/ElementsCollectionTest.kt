@@ -21,6 +21,7 @@ class ElementsCollectionTest {
     @Before
     fun setUp() {
         parent = mockWebElement()
+        @Suppress("UNCHECKED_CAST")
         collection = Mockito.mock(ElementsCollection::class.java) as ElementsCollection<WebElement>
     }
 
@@ -45,8 +46,8 @@ class ElementsCollectionTest {
 
     @Test
     fun shouldFindNestedElementFromCollection() {
-        val listElement: OrnateWebElement<WebElement> = mockOrnateWebElement() as OrnateWebElement<WebElement>
-        val block: OrnateWebElement<WebElement> = mockOrnateWebElement() as OrnateWebElement<WebElement>
+        val listElement = mockOrnateWebElement()
+        val block = mockOrnateWebElement()
 
         Mockito.`when`(parent.findElements(By.xpath(SELECTOR))).thenReturn(collection)
         Mockito.`when`(collection.size).thenReturn(DEFAULT_SIZE)

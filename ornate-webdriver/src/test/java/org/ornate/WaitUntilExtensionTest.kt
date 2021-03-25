@@ -80,6 +80,7 @@ class WaitUntilExtensionTest {
         private const val IS_DISPLAYED = true
         private const val NOT_DISPLAYED = false
 
+        @Suppress("UNCHECKED_CAST")
         private fun createElementsCollection(elements: Array<OrnateWebElement<*>>): ElementsCollection<OrnateWebElement<*>> {
             return Ornate()
                 .extension(WaitUntilMethodExtension())

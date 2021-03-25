@@ -15,6 +15,7 @@ class FilterCollectionExtension : MethodExtension {
         return method.name == FILTER && MutableList::class.java.isAssignableFrom(method.declaringClass)
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun invoke(
         proxy: Any,
         methodInfo: MethodInfo,

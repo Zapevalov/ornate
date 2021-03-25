@@ -14,6 +14,7 @@ class ExtractMethodExtension : MethodExtension {
         return method.name == EXTRACT && MutableList::class.java.isAssignableFrom(method.returnType)
     }
 
+    @Suppress("UNCHECKED_CAST")
     override fun invoke(
         proxy: Any,
         methodInfo: MethodInfo,

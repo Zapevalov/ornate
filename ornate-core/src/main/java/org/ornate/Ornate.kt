@@ -28,6 +28,7 @@ class Ornate @JvmOverloads constructor(private val configuration: Configuration 
         return this
     }
 
+    @Suppress("UNCHECKED_CAST")
     fun <T> create(ornateTarget: OrnateTarget, type: Class<T>): T {
         val invokers: MutableMap<Method, MethodInvoker> = HashMap()
         val methods: List<Method> = getMethods(type, Any::class.java)
