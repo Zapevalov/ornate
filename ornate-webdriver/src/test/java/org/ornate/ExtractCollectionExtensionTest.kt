@@ -12,6 +12,7 @@ import org.ornate.testdata.ObjectFactory.mockOrnateWebElement
 import org.ornate.testdata.ObjectFactory.mockWebElement
 import java.util.*
 
+@Suppress("UNCHECKED_CAST")
 class ExtractCollectionExtensionTest {
     private lateinit var collection: ElementsCollection<OrnateWebElement<*>>
     private val element: OrnateWebElement<*> = mockOrnateWebElement()

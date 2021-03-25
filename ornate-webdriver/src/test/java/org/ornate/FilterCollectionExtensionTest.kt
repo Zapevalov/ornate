@@ -56,6 +56,7 @@ class FilterCollectionExtensionTest {
         private const val TEXT = "text"
         private const val WRONG_TEXT = "wrong"
 
+        @Suppress("UNCHECKED_CAST")
         private fun createElementsCollection(elements: Array<OrnateWebElement<*>>): ElementsCollection<OrnateWebElement<*>> {
             return Ornate()
                 .extension(FilterCollectionExtension())

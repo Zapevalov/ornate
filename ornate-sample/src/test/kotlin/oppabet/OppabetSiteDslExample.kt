@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver
 import org.ornate.*
 import org.testng.annotations.AfterTest
 import org.testng.annotations.BeforeTest
+import org.testng.annotations.Ignore
 import org.testng.annotations.Test
 import ru.yandex.qatools.matchers.webdriver.DisplayedMatcher.displayed
 import ru.yandex.qatools.matchers.webdriver.TextMatcher.text
@@ -20,7 +21,7 @@ class OppabetSiteDslExample {
     private lateinit var ornateConfig: Ornate
     private lateinit var driver: WebDriver
 
-    @BeforeTest
+//    @BeforeTest
     fun startDriver() {
         WebDriverManager.chromedriver().setup()
         driver = ChromeDriver()
@@ -28,6 +29,7 @@ class OppabetSiteDslExample {
             .listener(AllureLogger())
     }
 
+    @Ignore
     @Test
     fun test() = webTest {
         onSite<OppabetSite>(ornateConfig, driver) {
@@ -50,6 +52,6 @@ class OppabetSiteDslExample {
     }
 
 
-    @AfterTest
+//    @AfterTest
     fun stopDriver() = driver.close()
 }

@@ -1,3 +1,4 @@
+import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
 buildscript {
     repositories {
         jcenter()
@@ -18,6 +19,9 @@ plugins {
     id("io.spring.dependency-management") version "1.0.8.RELEASE"
     id("net.researchgate.release") version "2.8.1"
     kotlin("jvm") version "1.4.21" apply false
+    `java-library`
+    `maven-publish`
+    signing
 }
 
 release {
@@ -25,23 +29,23 @@ release {
 }
 
 configure(listOf(rootProject)) {
-    description = "Ornate"
-    group = "org.ornate"
+    description = rootProject.name
+    group = group
 }
 
 
-subprojects {
-    group = "org.ornate"
+configure(subprojects) {
+    group = group
     version = version
 
     apply {
         plugin("org.jetbrains.kotlin.jvm")
         plugin("kotlin")
-        plugin("java")
         plugin("maven")
         plugin("java-library")
 //        plugin("ru.vyarus.quality")
         plugin("io.spring.dependency-management")
+        plugin("maven-publish")
     }
 
     repositories {
@@ -50,7 +54,6 @@ subprojects {
         mavenLocal()
     }
 
-    val implementation by configurations
     dependencies {
         implementation(kotlin("stdlib-jdk8"))
         implementation("org.apache.commons:commons-lang3:3.7")
@@ -70,5 +73,10 @@ subprojects {
 
     tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
         kotlinOptions.jvmTarget = "11"
+    }
+
+    java {
+        withJavadocJar()
+        withSourcesJar()
     }
 }
