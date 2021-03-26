@@ -6,7 +6,7 @@ name: Gradle build
 on:
   push:
     branches: [ master ]
-    paths-ignore: ['**/README.adoc', 'workflows/**']
+    paths-ignore: ['**/README.adoc', '.github/workflows/**']
     
   pull_request:
     branches: [ master ]
