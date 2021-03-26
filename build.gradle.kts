@@ -1,4 +1,6 @@
 import io.spring.gradle.dependencymanagement.dsl.DependencyManagementExtension
+import java.net.URI
+
 buildscript {
     repositories {
         jcenter()
@@ -78,5 +80,24 @@ configure(subprojects) {
     java {
         withJavadocJar()
         withSourcesJar()
+    }
+
+    publishing {
+        publications {
+            create<MavenPublication>("main") {
+                from(components["java"])
+            }
+        }
+
+        repositories {
+            maven {
+                name = "GitHubPackages"
+                url = URI.create("https://maven.pkg.github.com/zapevalov/ornate")
+                credentials {
+                    username = System.getenv("GITHUB_ACTOR")
+                    password = System.getenv("GITHUB_TOKEN")
+                }
+            }
+        }
     }
 }
