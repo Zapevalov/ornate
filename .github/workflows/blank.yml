@@ -27,8 +27,17 @@ jobs:
         # If we split on '/' and take the 3rd value,
         # we can get the release name.
         run: |
+          echo "GITHUB_REF ##: ${GITHUB_REF##*/}"
           echo "GITHUB_REF: ${GITHUB_REF}"
           NEW_VERSION=$(echo "${GITHUB_REF}" | cut -d "/" -f3)
           echo "New version: ${NEW_VERSION}"
           echo "Github username: ${GITHUB_ACTOR}"
   #        ./gradlew -Pversion=${NEW_VERSION} publish
+      - name: Extract tag name
+        id: tag
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            return context.payload.ref.replace(/\/refs\/tags\//, '');
+      - name: Echo
+        run: echo ${{ steps.tag.outputs.result }}
