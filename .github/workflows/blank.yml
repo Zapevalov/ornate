@@ -34,11 +34,20 @@ jobs:
           echo "Github username: ${GITHUB_ACTOR}"
   #        ./gradlew -Pversion=${NEW_VERSION} publish
   
+      - name: Extract branch name
+        shell: bash
+        run: | 
+          echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/tags/})"
+        id: extract_branch
+  
       - name: Extract tag name
         uses: actions/github-script@0.2.0 
+        id: tag
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             return context.payload.ref.replace(/\/refs\/tags\//, '');
       - name: Echo
-        run: echo ${{ steps.tag.outputs.result }}
+        run: |
+          echo ${{ steps.tag.outputs.result }}
+          echo ${{ steps.extract_branch.outputs.result }}
